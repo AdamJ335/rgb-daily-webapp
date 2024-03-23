@@ -5,6 +5,11 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
+
   title = 'rgb-daily-webapp';
+  redValue = Math.floor(Math.random() * 255); 
+  greenValue = Math.floor(Math.random() * 255); 
+  blueValue = Math.floor(Math.random() * 255); 
+
 }
