@@ -9,6 +9,24 @@ main {
 h1 {
   text-align: center;
   font-size: xxx-large;
+  animation: fade-in-text 4s ease;
+  animation-delay: 2s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+form {
+  padding: 50px;
+  text-align: center;
+  font-size: xx-large;
+  animation: fade-in-text 4s ease;
+  animation-delay: 4s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+input {
+  background-color: transparent!important;
 }
 
 @keyframes gradient {
@@ -20,5 +38,15 @@ h1 {
   }
   100% {
     background-position: 0 50%;
+  }
+}
+@keyframes fade-in-text {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
