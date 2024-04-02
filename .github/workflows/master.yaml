@@ -1,0 +1,23 @@
+name: master
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  test:
+    name: test
+    uses: ./.github/workflows/step-test.yaml
+  release:
+    needs: test
+    name: release
+    uses: ./.github/workflows/step-release.yaml
+  merge:
+    needs: release
+    name: merge
+    uses: ./.github/workflows/step-merge.yaml
+  deploy:
+    needs: merge
+    name: deploy
+    uses: ./.github/workflows/step-deploy.yaml

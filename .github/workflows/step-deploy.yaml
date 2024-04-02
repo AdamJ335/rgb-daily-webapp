@@ -1,0 +1,21 @@
+name: deploy
+on:
+  workflow_call:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 20.x ]
+    steps:
+      - name: Checkout 🛎️️
+        uses: actions/checkout@v4
+      - name: Build 🔧
+        run: |
+          npm ci
+          npm run build:github
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: ./dist/webapp/browser
