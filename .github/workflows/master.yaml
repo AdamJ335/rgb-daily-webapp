@@ -10,7 +10,7 @@ jobs:
 #    name: test
 #    uses: ./.github/workflows/step-test.yaml
   release:
-    needs: test
+#    needs: test
     name: release
     uses: ./.github/workflows/step-release.yaml
   merge:
