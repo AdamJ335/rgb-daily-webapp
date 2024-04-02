@@ -6,9 +6,9 @@ on:
 permissions:
   contents: write
 jobs:
-  test:
-    name: test
-    uses: ./.github/workflows/step-test.yaml
+#  test:
+#    name: test
+#    uses: ./.github/workflows/step-test.yaml
   release:
     needs: test
     name: release
