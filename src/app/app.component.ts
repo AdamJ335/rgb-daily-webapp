@@ -1,5 +1,6 @@
 import {Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {ColourService} from "./colour.service";
 
 @Component({
   selector: 'app-root',
@@ -11,18 +12,18 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('colourTest') colourTest!: ElementRef<HTMLElement>
 
   title = 'rgb-daily-webapp';
-  redValue = this.getValueNumber();
-  greenValue = this.getValueNumber();
-  blueValue = this.getValueNumber();
 
+  constructor(private http: HttpClient, public colourService: ColourService) {
+    colourService.setRedValue(this.getValueNumber())
+    colourService.setGreenValue(this.getValueNumber())
+    colourService.setBlueValue(this.getValueNumber())
+  }
   getValueNumber() {
     return Math.round(Math.random() * 255);
   }
-  constructor(private http: HttpClient) { }
-
 
   ngAfterViewInit() {
-    this.http.get<any>('https://www.thecolorapi.com/id?rgb=rgb('+this.redValue+','+this.greenValue+','+this.blueValue+')').subscribe(data => {
+    this.http.get<any>('https://www.thecolorapi.com/id?rgb=rgb('+this.colourService.getRedValue()+','+this.colourService.getGreenValue()+','+this.colourService.getBlueValue()+')').subscribe(data => {
       this.colourApiPackage = data.name.value
     })
     this.colourTest.nativeElement.style.backgroundImage = `linear-gradient(10deg, ${this.gradientValue(-50)} 0%, ${this.gradientValue(0)} 25%, ${this.gradientValue(0)} 50%, ${this.gradientValue(50)} 75%)`;
@@ -32,13 +33,13 @@ export class AppComponent implements AfterViewInit {
     }
   }
   gradientValue(value:number) {
-    return `rgb(${this.redValue+value}, ${this.greenValue+value}, ${this.blueValue+value})`
+    return `rgb(${this.colourService.getRedValue()+value}, ${this.colourService.getGreenValue()+value}, ${this.colourService.getBlueValue()+value})`
   }
 
   darkColour() {
-    let lumR = this.lumValue(this.redValue);
-    let lumG = this.lumValue(this.greenValue);
-    let lumB = this.lumValue(this.blueValue);
+    let lumR = this.lumValue(this.colourService.getRedValue());
+    let lumG = this.lumValue(this.colourService.getGreenValue());
+    let lumB = this.lumValue(this.colourService.getBlueValue());
 
     return (lumR * 0.2126 + lumG * 0.7152 + lumB * 0.0722) < 0.179
     // Basic luminance check
