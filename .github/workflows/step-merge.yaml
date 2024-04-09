@@ -11,7 +11,7 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          from_branch: main
+          from_branch: master
           target_branch: develop
           message: Merge version bump into develop
           github_token: ${{ secrets.GITHUB_TOKEN }}
