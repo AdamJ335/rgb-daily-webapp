@@ -7,11 +7,11 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-      - name: Merge into Develop ➡️
+      - name: Merge into Development ➡️
         uses: devmasx/merge-branch@master
         with:
           type: now
-          from_branch: main
-          target_branch: develop
-          message: Merge version bump into develop
+          from_branch: master
+          target_branch: development
+          message: Merge version bump into development
           github_token: ${{ secrets.GITHUB_TOKEN }}
