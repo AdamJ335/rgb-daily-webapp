@@ -3,6 +3,6 @@
     <input [(ngModel)]="colourInput" type="color" id="rgbGuess" name="rgbGuess"><br/>
     <button class="button" type="submit">Submit</button>
   </form>
-  <p>{{colourCorrect}}</p>
+  <p *ngIf="colourCorrect">You have guessed Correctly!</p>
   <p>{{colourName| async}}</p>
 </div>
