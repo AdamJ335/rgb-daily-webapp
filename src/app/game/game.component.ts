@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {ColourService} from "../colour.service";
-import {AsyncPipe} from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {Observable} from "rxjs";
 
@@ -9,7 +9,8 @@ import {Observable} from "rxjs";
   standalone: true,
   imports: [
     AsyncPipe,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
@@ -30,6 +31,8 @@ export class GameComponent {
     console.log(this.colourName)
     console.log(this.guessedColour)
     console.log("colour checked!")
+
+    this.colourCorrect = this.guessIsCorrect(this.guessedColour);
   }
 
 
@@ -40,5 +43,11 @@ export class GameComponent {
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16)
     } : null;
+  }
+
+  guessIsCorrect(guessedColour:any) {
+    return guessedColour.r == this.colourService.getRedValue() &&
+      guessedColour.g == this.colourService.getGreenValue() &&
+      guessedColour.b == this.colourService.getBlueValue()
   }
 }
