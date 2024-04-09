@@ -1,11 +1,11 @@
 {
   "name": "rgb-daily-webapp",
-  "version": "0.0.7-SNAPSHOT",
+  "version": "0.0.8-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:github": "ng build --configuration=production --base-href /",
+    "build:github": "ng build --configuration=production --base-href ./",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
