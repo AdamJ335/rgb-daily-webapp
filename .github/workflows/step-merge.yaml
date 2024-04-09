@@ -12,6 +12,6 @@ jobs:
         with:
           type: now
           from_branch: master
-          target_branch: develop
+          target_branch: development
           message: Merge version bump into develop
           github_token: ${{ secrets.GITHUB_TOKEN }}
