@@ -2,4 +2,16 @@
 * {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
+  animation: fade-in-background 1s ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in-background {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+
 }
