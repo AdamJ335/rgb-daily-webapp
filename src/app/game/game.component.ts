@@ -21,18 +21,30 @@ export class GameComponent {
   guessedColour:any
   colourName!: Observable<string>
   colourCorrect: boolean = false
+  guessCount:number = 0
+  maxGuessCount:number = 5
+  maxGuessReached:boolean = false
 
-  constructor(private colourService: ColourService) {
+  constructor(protected colourService: ColourService) {
   }
 
   async checkColour() {
+    this.guessCount++;
+    if(this.guessCount == this.maxGuessCount){
+      this.maxGuessReached = true
+    } else if (this.guessCount > this.maxGuessCount) {
+      return
+    }
+
     this.colourName = this.colourService.getNameByHex(this.colourInput);
     this.guessedColour = this.hexToRgb(this.colourInput);
     console.log(this.colourName)
     console.log(this.guessedColour)
     console.log("colour checked!")
 
-    this.colourCorrect = this.guessIsCorrect(this.guessedColour);
+    if(this.guessIsCorrect(this.guessedColour)) {
+      this.colourCorrect = true;
+    }
   }
 
 

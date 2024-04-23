@@ -28,7 +28,7 @@ export class HttpService {
 
   }
 
-  private static handleError(error: HttpErrorResponse) { // FixMe -> util...
+  private static handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);

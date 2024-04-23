@@ -4,5 +4,6 @@
     <button class="button" type="submit">Submit</button>
   </form>
   <p *ngIf="colourCorrect">You have guessed Correctly!</p>
+  <p *ngIf="maxGuessReached">Run out of guesses. Answer is red value = {{ colourService.getRedValue() }} green value = {{ colourService.getGreenValue() }} blue value = {{ colourService.getBlueValue() }}</p>
   <p>{{colourName| async}}</p>
 </div>
