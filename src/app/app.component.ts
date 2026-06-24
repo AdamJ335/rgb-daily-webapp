@@ -1,10 +1,15 @@
 import {Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {ColourService} from "./colour.service";
+import { GameComponent } from "./game/game.component";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  standalone: true,
+  imports: [
+    GameComponent
+  ],
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
