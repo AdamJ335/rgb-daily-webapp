@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {ColourService} from "../colour.service";
-import {AsyncPipe, NgIf} from "@angular/common";
+import { AsyncPipe } from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {Observable} from "rxjs";
 
@@ -9,9 +9,8 @@ import {Observable} from "rxjs";
   standalone: true,
   imports: [
     AsyncPipe,
-    FormsModule,
-    NgIf
-  ],
+    FormsModule
+],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
