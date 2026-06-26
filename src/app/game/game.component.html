@@ -1,10 +1,10 @@
 <div>
-  <form (submit)="checkColour()">
-    <input [(ngModel)]="colourInput" type="color" id="rgbGuess" name="rgbGuess"><br/>
-    <button class="button" type="submit">Submit</button>
-  </form>
-  @if (colourCorrect) {
-    <p>You have guessed Correctly!</p>
-  }
-  <p>{{colourName| async}}</p>
+  <app-colour-picker></app-colour-picker>
+  <button class="button" (click)="checkColour()" [disabled]="hasPlayedToday()">Submit</button>
+
+  <app-score-modal 
+    [show]="showModal()" 
+    [score]="score()"
+    (close)="closeModal()">
+  </app-score-modal>
 </div>

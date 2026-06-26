@@ -1,0 +1,39 @@
+<div class="color-preview" [style.backgroundColor]="hslColor()"></div>
+
+<div class="slider-container">
+  <label for="hue">Hue</label>
+  <input
+    type="range"
+    id="hue"
+    class="slider hue-slider"
+    min="0"
+    max="360"
+    [value]="hue()"
+    (input)="onHueChange($event)">
+</div>
+
+<div class="slider-container">
+  <label for="saturation">Saturation</label>
+  <input
+    type="range"
+    id="saturation"
+    class="slider"
+    min="0"
+    max="100"
+    [value]="saturation()"
+    [style.background]="saturationBackground()"
+    (input)="onSaturationChange($event)">
+</div>
+
+<div class="slider-container">
+  <label for="lightness">Lightness</label>
+  <input
+    type="range"
+    id="lightness"
+    class="slider"
+    min="0"
+    max="100"
+    [value]="lightness()"
+    [style.background]="lightnessBackground()"
+    (input)="onLightnessChange($event)">
+</div>
