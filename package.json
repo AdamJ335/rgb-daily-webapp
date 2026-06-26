@@ -1,6 +1,6 @@
 {
   "name": "rgb-daily-webapp",
-  "version": "0.0.15",
+  "version": "0.0.16-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "concurrently \"ng serve --proxy-config proxy.conf.json\" \"npm run serve:api\"",
