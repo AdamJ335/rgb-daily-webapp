@@ -1,52 +1,77 @@
-import { Component } from '@angular/core';
-import {ColourService} from "../colour.service";
-import { AsyncPipe } from "@angular/common";
-import {FormsModule} from "@angular/forms";
-import {Observable} from "rxjs";
+import { Component, ViewChild, signal, OnInit } from '@angular/core';
+import { ColourService } from "../colour.service";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { Observable } from "rxjs";
+import { ColourPickerComponent } from "../colour-picker/colour-picker.component";
+import { ScoreModalComponent } from "../score-modal/score-modal.component";
 
 @Component({
   selector: 'game',
   standalone: true,
   imports: [
-    AsyncPipe,
-    FormsModule
-],
+    FormsModule,
+    ColourPickerComponent,
+    ScoreModalComponent,
+    CommonModule
+  ],
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
-export class GameComponent {
+export class GameComponent implements OnInit {
+  @ViewChild(ColourPickerComponent) colourPicker!: ColourPickerComponent;
 
-  colourInput:any
-  guessedColour:any
-  colourName!: Observable<string>
-  colourCorrect: boolean = false
+  colourName!: Observable<string>;
+  score = signal(0);
+  showModal = signal(false);
+  hasPlayedToday = signal(false);
 
   constructor(private colourService: ColourService) {
   }
 
+  ngOnInit() {
+    const lastPlayDate = localStorage.getItem('lastPlayDate');
+    const today = new Date().toDateString();
+    if (lastPlayDate === today) {
+      this.hasPlayedToday.set(true);
+      this.score.set(parseInt(localStorage.getItem('lastScore') || '0', 10));
+      this.showModal.set(true);
+    }
+  }
+
   async checkColour() {
-    this.colourName = this.colourService.getNameByHex(this.colourInput);
-    this.guessedColour = this.hexToRgb(this.colourInput);
-    console.log(this.colourName)
-    console.log(this.guessedColour)
-    console.log("colour checked!")
+    if (this.hasPlayedToday()) return;
 
-    this.colourCorrect = this.guessIsCorrect(this.guessedColour);
+    const guessedColour = this.colourPicker.getRgb();
+    const newScore = this.calculateScore(guessedColour);
+    this.score.set(newScore);
+    this.showModal.set(true);
+
+    const today = new Date().toDateString();
+    localStorage.setItem('lastPlayDate', today);
+    localStorage.setItem('lastScore', newScore.toString());
+    this.hasPlayedToday.set(true);
   }
 
+  calculateScore(guessedColour: { r: number, g: number, b: number }): number {
+    const target = {
+      r: this.colourService.getRedValue(),
+      g: this.colourService.getGreenValue(),
+      b: this.colourService.getBlueValue()
+    };
 
-  hexToRgb(hex:any) {
-    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
+    const maxDistance = Math.sqrt(Math.pow(255, 2) * 3);
+    const distance = Math.sqrt(
+      Math.pow(target.r - guessedColour.r, 2) +
+      Math.pow(target.g - guessedColour.g, 2) +
+      Math.pow(target.b - guessedColour.b, 2)
+    );
+
+    const score = 100 * (1 - distance / maxDistance);
+    return Math.round(score);
   }
 
-  guessIsCorrect(guessedColour:any) {
-    return guessedColour.r == this.colourService.getRedValue() &&
-      guessedColour.g == this.colourService.getGreenValue() &&
-      guessedColour.b == this.colourService.getBlueValue()
+  closeModal() {
+    this.showModal.set(false);
   }
 }

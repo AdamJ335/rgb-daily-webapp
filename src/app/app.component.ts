@@ -1,5 +1,4 @@
 import {Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import {ColourService} from "./colour.service";
 import { GameComponent } from "./game/game.component";
 
@@ -18,19 +17,16 @@ export class AppComponent implements AfterViewInit {
 
   title = 'rgb-daily-webapp';
 
-  constructor(private http: HttpClient, public colourService: ColourService) {
-    colourService.setRedValue(this.getValueNumber())
-    colourService.setGreenValue(this.getValueNumber())
-    colourService.setBlueValue(this.getValueNumber())
-  }
-  getValueNumber() {
-    return Math.round(Math.random() * 255);
+  constructor(public colourService: ColourService) {
+    this.colourService.loadDailyColour().subscribe(() => {
+      this.ngAfterViewInit();
+    });
   }
 
   ngAfterViewInit() {
-    this.http.get<any>('https://www.thecolorapi.com/id?rgb=rgb('+this.colourService.getRedValue()+','+this.colourService.getGreenValue()+','+this.colourService.getBlueValue()+')').subscribe(data => {
-      this.colourApiPackage = data.name.value
-    })
+    if (!this.colourTest) {
+      return;
+    }
     this.colourTest.nativeElement.style.backgroundImage = `linear-gradient(10deg, ${this.gradientValue(-50)} 0%, ${this.gradientValue(0)} 25%, ${this.gradientValue(0)} 50%, ${this.gradientValue(50)} 75%)`;
 
     if (this.darkColour()) {
@@ -47,8 +43,6 @@ export class AppComponent implements AfterViewInit {
     let lumB = this.lumValue(this.colourService.getBlueValue());
 
     return (lumR * 0.2126 + lumG * 0.7152 + lumB * 0.0722) < 0.179
-    // Basic luminance check
-    // return (this.redValue*0.299 + this.greenValue*0.587 + this.blueValue*0.114) < 186
   }
   lumValue(lum: any): any {
     lum = lum / 255

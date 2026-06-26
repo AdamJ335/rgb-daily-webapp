@@ -1,0 +1,11 @@
+<div class="modal-overlay" *ngIf="show" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Your Score</h2>
+    <div class="score-display">
+      <div class="stars">{{ stars() }}</div>
+      <div class="score">{{ score }}</div>
+    </div>
+    <button class="button" (click)="copyResults()">Copy</button>
+    <button class="close-button" (click)="closeModal()">×</button>
+  </div>
+</div>
