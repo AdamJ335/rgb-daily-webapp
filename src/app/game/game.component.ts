@@ -2,7 +2,6 @@ import { Component, ViewChild, signal, OnInit } from '@angular/core';
 import { ColourService } from "../colour.service";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { Observable } from "rxjs";
 import { ColourPickerComponent } from "../colour-picker/colour-picker.component";
 import { ScoreModalComponent } from "../score-modal/score-modal.component";
 
@@ -21,7 +20,7 @@ import { ScoreModalComponent } from "../score-modal/score-modal.component";
 export class GameComponent implements OnInit {
   @ViewChild(ColourPickerComponent) colourPicker!: ColourPickerComponent;
 
-  colourName!: Observable<string>;
+  colourName: string | undefined
   score = signal(0);
   showModal = signal(false);
   hasPlayedToday = signal(false);
@@ -30,6 +29,12 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.colourService.getColourName().subscribe({
+      next: (name) => {
+        this.colourName = name
+      },
+      error: err => console.error('Something went wrong: ', err)
+    })
     const lastPlayDate = localStorage.getItem('lastPlayDate');
     const today = new Date().toDateString();
     if (lastPlayDate === today) {
