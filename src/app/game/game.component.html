@@ -1,9 +1,10 @@
 <div>
+  <h1>{{ colourName }}</h1>
   <app-colour-picker></app-colour-picker>
   <button class="button" (click)="checkColour()" [disabled]="hasPlayedToday()">Submit</button>
 
-  <app-score-modal 
-    [show]="showModal()" 
+  <app-score-modal
+    [show]="showModal()"
     [score]="score()"
     (close)="closeModal()">
   </app-score-modal>
