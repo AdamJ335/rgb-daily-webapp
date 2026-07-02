@@ -35,7 +35,7 @@ export class ScoreModalComponent {
   });
 
   copyResults() {
-    const results = `Colorfle\n${this.stars()}\n${this.score}\nFont: Montserrat, sans-serif`;
+    const results = `Colorfle\n${this.stars()}\n${this.score}`;
     navigator.clipboard.writeText(results).then(() => {
       // maybe show a "copied!" message
     }).catch(err => {
