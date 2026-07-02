@@ -3,7 +3,7 @@
   "version": "0.0.16-SNAPSHOT",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"ng serve --proxy-config proxy.conf.json\" \"npm run serve:api\"",
+    "start": "ng serve",
     "serve:api": "node server.js",
     "build": "ng build",
     "build:github": "ng build --configuration=production --base-href ./",
