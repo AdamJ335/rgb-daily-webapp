@@ -1,9 +1,24 @@
 <div class="modal-overlay" *ngIf="show" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <h2>Your Score</h2>
+    <h4>{{ scoreMessage() }}</h4>
     <div class="score-display">
       <div class="stars">{{ stars() }}</div>
       <div class="score">{{ score }}</div>
+    </div>
+    <!-- Detailed breakdown - not for copy-pasta -->
+    <div class="score-breakdown">
+      <div class="breakdown-item">
+        <span class="label">Hue</span>
+        <span class="value">{{ hueScore }}%</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="label">Saturation</span>
+        <span class="value">{{ saturationScore }}%</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="label">Brightness</span>
+        <span class="value">{{ lightnessScore }}%</span>
+      </div>
     </div>
     <button class="button" (click)="copyResults()">Copy</button>
     <button class="close-button" (click)="closeModal()">×</button>

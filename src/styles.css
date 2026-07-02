@@ -6,6 +6,31 @@
   animation-fill-mode: forwards;
 }
 
+.button {
+  background-color: #4CAF50;
+  border: 2px solid #000;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
 @keyframes fade-in-background {
   0% {
     opacity: 0.2;
