@@ -1,6 +1,6 @@
 {
   "name": "rgb-daily-webapp",
-  "version": "0.0.19",
+  "version": "0.0.20-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
